@@ -9,7 +9,7 @@ public class newSortingTester {
         newSorting.newSorting(a, 4);
         int[] expected = {1, 2, 3, 4, 5};
         System.out.println(Arrays.toString(a));
-      //  assertArrayEquals(expected, a);
+       //assertArrayEquals(expected, a);
     }
 
    //
