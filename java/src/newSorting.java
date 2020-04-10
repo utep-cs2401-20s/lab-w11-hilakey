@@ -33,14 +33,13 @@ public class newSorting {
 
             /* begin partitioning the array*/
             while(less < more){
-                if(less <= a.length-1 && a[less] <= pivot){
+                while(less <= a.length-1 && a[less] <= pivot){
                     less++;
                 }
-                if(more >= 1 && a[more] > pivot){
-                    more++;
+                while(more >= 1 && a[more] > pivot){
+                    more--;
                 }
-
-                if(less > more){
+                 if(less < more){
                     int temp = a[less];
                     a[less] = a[more];
                     a[more] = temp;
@@ -50,8 +49,9 @@ public class newSorting {
             int temp = pivot;
             a[0] = a[more];
             a[more] = temp;
-            int[] unsortedLeft = new int[pivot];
-            int[] unsortedRight = new int[a.length-pivot];
+            int[] unsortedLeft = new int[more];
+            int[] unsortedRight = new int[a.length-1-more];
+            populate(a, unsortedLeft, unsortedRight);
 
             /*make a recursive call on the unsorted halves*/
             quickSort(unsortedLeft);
@@ -66,16 +66,22 @@ public class newSorting {
      * with quickSort.
      */
     public static void populate(int[] A, int[] left, int[] right){
-        int mid = A.length/2;
+        int pivot = left.length;
 
         /*populate the left half and right half arrays.*/
+        int k = 0;
         for(int i = 0; i < A.length; i++){
-            if(i < mid){
+            if(i < pivot){
                 //populate the left half
                 left[i] = A[i];
             }else{
+                if(i == pivot){
+                    continue;
+                }else{
                 //populate the right half
-                right[i] = A[i];
+                right[k] = A[i];
+                k++;
+                }
             }
         }
 
@@ -86,30 +92,7 @@ public class newSorting {
         int j = 0; //iterator for the right half
         int i = 0; // iterator for A
 
-        while(i < A.length){
-            //if the iterators j or k are out of bounds, then populate the rest of A with the remaining values.
-            if(k == LH.length){
-                A[i] = RH[j];
-                j++;
-                i++;
-            }
-            if(j == RH.length){
-                A[i] = LH[k];
-                k++;
-                i++;
-            }
-            // the two if statements here are how the pointers j and k navigate through the left and right halves.
-            // and compare their values.
-            if(LH[k] < RH[j]){
-                A[i] = LH[k];
-                k++;
-                i++;
-            }
-            if(RH[j] < LH[k]){
-                A[i] = RH[j];
-                j++;
-                i++;
-            }
-        }
+
+
     }
 }
