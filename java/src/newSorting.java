@@ -110,7 +110,7 @@ public class newSorting {
                    continue;
                }
 
-               
+
                if(LH[L_index]< RH[R_index]){
                    A[A_index] = LH[L_index];
                    L_index++;
