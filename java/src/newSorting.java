@@ -20,9 +20,6 @@ public class newSorting {
 
             /* with the two halves sorted, now we merge them
              * by calling mergeSortedHalves().*/
-            //System.out.println(Arrays.toString(LH));
-            //System.out.println(Arrays.toString(RH));
-            //System.out.println(Arrays.toString(A));
             mergeSortedHalves(LH, RH, A);
         }
     }
