@@ -63,9 +63,42 @@ public class newSortingTester {
     }
 
     /* Test #4:
-     * Given an array with negatives, I am testing the logic to ensure that values less than 0 are sorted
+     * Given an array with negatives, I am testing the logic to ensure that values less than 0 are sorted when
+     * newSorting is given unexpected values. This is to ensure that the algorithm doesn't crash when given values
+     * that are not meant to be handled. I expect the test to pass.
+     * Input ---> {-1, -6, 0, -3, -4}
+     * Expected Output ---> {-6, -4, -3, -1, 0}
      *
-     **/
+     * PASS/FAIL?-----> PASS
+     */
+    @Test
+    public void testNewSorting4(){
+        int[] a = {-1, -6, -2, -3, -4};
+        newSorting.newSorting(a, 4);
+        int[] expected = {-6, -4, -3, -2, -1};
+        System.out.println(Arrays.toString(a));
+        assertArrayEquals(expected, a);
+    }
+
+    /* Test #5:
+     *  The final test is that given an array of a large size, and the array is already sorted in descending order,
+     *  will the newSorting algorithm be able to handle large amounts of data,  along with a twist to trick the logic
+     *  of my code. I believe that the code may be able to sort it, but it might give out an error in case the size is too
+     * large- this helps me know the limit of the size of an array it can handle.I expect the test to fail.
+     * Input --> {12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1}
+     * Expected Outputs ---> {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12}
+     *
+     ** PASS/FAIL?----->
+     * */
+    @Test
+    public void testNewSorting(){
+        int[] a = {12,11,10,9,8,7,6,5,4,3,2,1};
+        newSorting.newSorting(a, 12);
+        int[] expected = {1,2,3,4,5,6,7,8,9,10,11,12};
+        System.out.println(Arrays.toString(a));
+        assertArrayEquals(expected, a);
+
+    }
 
 
 }

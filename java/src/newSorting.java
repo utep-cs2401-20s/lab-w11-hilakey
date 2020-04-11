@@ -75,7 +75,8 @@ public class newSorting {
         int k = 0;
         while(k < right.length) {
             for (int i = 0; i < a.length; i++) {
-                if (i < mid) {
+
+                if (i < mid || i < left.length) {
                     //populate the left half
                     left[i] = a[i];
                 } else if (i >= mid) {
