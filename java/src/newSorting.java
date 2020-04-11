@@ -1,3 +1,6 @@
+import java.rmi.activation.ActivationGroup_Stub;
+import java.util.Arrays;
+
 public class newSorting {
     public static void newSorting(int[] A, int size){
         /* base case */
@@ -14,8 +17,12 @@ public class newSorting {
             newSorting(LH,size); /* sort the left half of A*/
             newSorting(RH, size); /* sort the right half of A*/
 
+
             /* with the two halves sorted, now we merge them
              * by calling mergeSortedHalves().*/
+            //System.out.println(Arrays.toString(LH));
+            //System.out.println(Arrays.toString(RH));
+            //System.out.println(Arrays.toString(A));
             mergeSortedHalves(LH, RH, A);
         }
     }
@@ -24,7 +31,7 @@ public class newSorting {
         /* base case*/
         if(a.length <= 1){
             //if a's size <= 1, then by default the array is sorted and we do nothing.
-            System.out.println("array is sorted");
+            System.out.println();
         }else{
             /* first we define our pivot*/
             int pivot = a[0]; //we set it as the value of the first element in our array.
@@ -50,7 +57,7 @@ public class newSorting {
             a[0] = a[more];
             a[more] = temp;
             int[] unsortedLeft = new int[more];
-            int[] unsortedRight = new int[a.length-1-more];
+            int[] unsortedRight = new int[a.length-more];
             populate(a, unsortedLeft, unsortedRight);
 
             /*make a recursive call on the unsorted halves*/
@@ -65,22 +72,19 @@ public class newSorting {
      * array A(the one we want to sort) and populates them, so that each half can be sorted
      * with quickSort.
      */
-    public static void populate(int[] A, int[] left, int[] right){
-        int pivot = left.length;
-
+    public static void populate(int[] a, int[] left, int[] right){
         /*populate the left half and right half arrays.*/
+        int mid = a.length/2;
         int k = 0;
-        for(int i = 0; i < A.length; i++){
-            if(i < pivot){
-                //populate the left half
-                left[i] = A[i];
-            }else{
-                if(i == pivot){
-                    continue;
-                }else{
-                //populate the right half
-                right[k] = A[i];
-                k++;
+        while(k < right.length) {
+            for (int i = 0; i < a.length; i++) {
+                if (i < mid) {
+                    //populate the left half
+                    left[i] = a[i];
+                } else if (i >= mid) {
+                    //populate the right half
+                    right[k] = a[i];
+                    k++;
                 }
             }
         }
@@ -88,11 +92,32 @@ public class newSorting {
     }
 
     public static void mergeSortedHalves(int[] LH, int[] RH, int[] A){
-        int k = 0; //iterator for the left half
-        int j = 0; //iterator for the right half
-        int i = 0; // iterator for A
+            int A_index; // iterator that goes through A
+            int L_index = 0; //iterator that goes through the left half
+            int R_index = 0; // iterator that goes through the right half
 
 
+           for(A_index = 0; A_index < A.length; A_index++ ){
+               if(L_index >= LH.length){
+                   A[A_index] = RH[R_index];
+                   R_index++;
+               }
+               else if(R_index >= RH.length){
+                   A[A_index] = LH[L_index];
+                   L_index++;
+               }
+               if(L_index >= LH.length && R_index >= RH.length){
+                   continue;
+               }
 
+               
+               if(LH[L_index]< RH[R_index]){
+                   A[A_index] = LH[L_index];
+                   L_index++;
+               }else if(LH[L_index]> RH[R_index]){
+                   A[A_index] = RH[R_index];
+                   R_index++;
+               }
+           }
     }
 }
